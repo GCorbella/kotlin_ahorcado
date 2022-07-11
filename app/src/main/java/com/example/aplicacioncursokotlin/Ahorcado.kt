@@ -11,6 +11,7 @@ import kotlin.random.Random
 class Ahorcado : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        //Inicialización de variables
         setContentView(R.layout.activity_ahorcado)
         val palabra = findViewById<TextView>(R.id.textViewPalabra)
         val empezar = findViewById<Button>(R.id.buttonEmpezar)
@@ -28,7 +29,7 @@ class Ahorcado : AppCompatActivity() {
         val falladas = mutableListOf<String>()
         var contador = 0
 
-
+        // Apretar el botón empezar
         empezar.setOnClickListener {
             mensaje.text = ""
             palabra.text = ""
@@ -43,11 +44,16 @@ class Ahorcado : AppCompatActivity() {
                 palabra.text = palabra.text.toString() + "_ "
             }
         }
+        // Apretar el botón Ok
         buscar.setOnClickListener {
+            // Reinicia el mensaje
             mensaje.text = ""
+            // Si la letra introducida es una letra o un numero o simbolo
             if (letra.text.toString().uppercase() in abecedario) {
+                //Comprobar si la letra ya se ha probado antes
                 if (letra.text.toString().uppercase() in falladas || letra.text.toString().uppercase() in acertadas){
                     mensaje.text = "Ya has probado esta letra. Introduce otra."}
+                // Si la letra esta en la palabra
                 else if (letra.text.toString().uppercase() in resultado){
                     aciertos.text = ""
                     palabra.text = ""
@@ -55,6 +61,7 @@ class Ahorcado : AppCompatActivity() {
                     for (l in acertadas){
                         aciertos.text = aciertos.text.toString() + l + " "
                     }
+                    // Cambia los _ por la letra introducida
                     for (l in resultado){
                         if (l.toString() == letra.text.toString().uppercase()){
                             palabra.text = palabra.text.toString() + l.toString()
@@ -70,6 +77,7 @@ class Ahorcado : AppCompatActivity() {
                         mensaje.text = "Felicidades! Has acertado la palabra."
                     }
                 }
+                // Si la letra no esta en la palabra
                 else {
                     contador ++
                     fallos.text = ""
